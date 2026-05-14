@@ -1,107 +1,52 @@
-# STM32 PWM LED Brightness Control
+# STM32 PWM LED Control
 
-Software PWM implementation on STM32F103C8T6 Blue Pill microcontroller for LED brightness control with smooth fading effects.
+A simple project demonstrating software-based PWM on STM32F103C8T6 to control LED brightness.
 
-## 🎯 Project Overview
+## What This Does
 
-This project demonstrates software-based Pulse Width Modulation (PWM) to control LED brightness on the STM32F103C8T6 microcontroller. The onboard LED fades smoothly in and out, creating a breathing effect.
+The onboard LED on the Blue Pill board fades in and out smoothly (like a breathing effect). I implemented software PWM by rapidly toggling the GPIO pin at different duty cycles to create varying brightness levels.
 
-## 🔧 Hardware Components
+## Components Used
 
-- **STM32F103C8T6 Blue Pill** Development Board
-- **ST-LINK V2** Programmer/Debugger
-- **Onboard LED** on PC13 pin
+- STM32F103C8T6 Blue Pill development board
+- ST-LINK V2 for programming
+- Onboard LED (PC13 pin)
 
-## 💡 Features
+## Key Features
 
-- ✅ Software PWM implementation (no timer peripherals needed)
-- ✅ Smooth LED fading effect (breathing pattern)
-- ✅ Adjustable brightness levels (0-100%)
-- ✅ Variable fade speed control
-- ✅ Efficient duty cycle management
+- Software PWM implementation - no hardware timers needed
+- Brightness control from 0% to 100%
+- Smooth fading transition
+- Adjustable fade speed
 
-## 🛠️ Development Environment
+## Development Setup
 
-- **IDE:** STM32CubeIDE
-- **Programming Language:** Embedded C
-- **HAL Library:** STM32 HAL
-- **Programmer:** ST-LINK V2
-- **Flash Tool:** STM32CubeProgrammer
+I used STM32CubeIDE for this project along with the STM32 HAL library. Programming was done through ST-LINK V2 using STM32CubeProgrammer.
 
-## 📊 Technical Implementation
+## How PWM Works Here
 
-### PWM Concept
+Instead of using hardware timer peripherals, I toggle the GPIO pin in software. By varying how long the LED stays ON vs OFF in each cycle, different brightness levels are achieved:
 
-PWM controls brightness by rapidly switching the LED ON/OFF at different duty cycles:
+- 10% duty cycle = dim
+- 50% duty cycle = medium  
+- 100% duty cycle = full brightness
 
-- **10% duty cycle** → Dim (LED ON for 10% of time)
-- **50% duty cycle** → Medium brightness
-- **100% duty cycle** → Full brightness
+The code loops through brightness values from 0 to 100 and back down, creating the fade effect.
 
-### Code Logic
+## What I Learned
 
-```c
-// Fade IN: brightness increases from 0 to 100
-for(int brightness = 0; brightness <= 100; brightness++) {
-    // Turn LED ON for 'brightness' duration
-    // Turn LED OFF for remaining duration
-    // Repeat to create smooth visual effect
-}
+- GPIO manipulation and timing
+- Software vs hardware PWM tradeoffs
+- STM32 HAL programming basics
+- Embedded C optimization
 
-// Fade OUT: brightness decreases from 100 to 0
-```
+## Future Ideas
 
-The human eye perceives rapid ON/OFF switching as varying brightness levels.
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- STM32CubeIDE installed
-- ST-LINK drivers installed
-- STM32F103C8T6 Blue Pill board
-- ST-LINK V2 programmer
-
-### Build & Flash
-
-1. Clone this repository
-2. Open project in STM32CubeIDE
-3. Build the project (`Ctrl+B`)
-4. Connect ST-LINK to Blue Pill:
-   - 3.3V → 3V3
-   - GND → GND
-   - SWDIO → SWIO
-   - SWCLK → SWCLK
-5. Flash using STM32CubeProgrammer or IDE
-6. Watch the LED fade smoothly!
-
-## 📸 Demo
-
-The onboard LED (PC13) fades from OFF → BRIGHT → OFF in a continuous loop, creating a breathing effect.
-
-## 📝 Key Learning Outcomes
-
-This project demonstrates:
-- ✅ GPIO control and manipulation
-- ✅ Software PWM vs Hardware PWM concepts
-- ✅ Duty cycle and frequency relationship
-- ✅ STM32 HAL programming
-- ✅ Embedded C optimization techniques
-
-## 🔄 Future Enhancements
-
-- [ ] Add hardware PWM using Timer peripherals
-- [ ] Multiple LED control with different patterns
-- [ ] User-configurable fade speed via UART
-- [ ] RGB LED color mixing
-- [ ] Button-controlled brightness levels
-
-## 📧 Contact
-
-**Gudla Srikanth**  
-📧 srikanthsk02@gmail.com  
-🔗 [GitHub](https://github.com/srikanthgudla-eng) | [LinkedIn](#)
+- Add hardware PWM using timers for comparison
+- Control multiple LEDs with different patterns
+- Add button control for user interaction
 
 ---
 
-**Status:** ✅ Working | **Last Updated:** May 2025
+**Gudla Srikanth**  
+srikanthsk02@gmail.com
